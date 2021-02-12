@@ -1,0 +1,70 @@
+import numpy
+def is_number(s):
+    try:
+        nb=float(s)
+        return True
+    except ValueError as e:
+        return False
+def see_preflop(string,num_list):
+     double_count=0
+     f=string.find('<')
+     num_list[0][0]=int(string[f+1])
+     if is_number(string[f+3:f+5]):
+         num_list[1][0]=int(string[f+3:f+5])
+         double_count+=1
+     else :
+         num_list[1][0]=int(string[f+3])
+     num_list[0][1]=int(string[f+6+double_count])
+     if is_number(string[f+8+double_count:f+10+double_count]):
+         num_list[1][1]=int(string[f+8+double_count:f+10+double_count])
+         double_count+=1
+     else :
+         num_list[1][1]=int(string[f+8+double_count])
+
+def see_flop(string,num_list):
+    f=string.find('<')
+    num_list[0][2]=int(string[f+1])
+    double_count=0
+    if is_number(string[f+3:f+5]):
+        num_list[1][2]=int(string[f+3:f+5])
+        double_count+=1
+    else:
+        num_list[1][2]=int(string[f+3])
+    num_list[0][3]=int(string[f+6+double_count])
+    if is_number(string[f+8+double_count:f+10+double_count]):
+        num_list[1][3]=int(string[f+8+double_count:f+10+double_count])
+        double_count+=1
+    else:
+        num_list[1][3]=int(string[f+8+double_count])
+    num_list[0][4]=int(string[f+11+double_count])
+    if is_number(string[f+13+double_count:f+15+double_count]):
+        num_list[1][4]=int(string[f+13+double_count:f+15+double_count])
+        double_count+=1
+    else:
+        num_list[1][4]=int(string[f+13+double_count])
+def see_turn(string,num_list):
+    f=string.find('<')
+    num_list[0][5]=int(string[f+1])
+    if is_number(string[f+3:f+5]):
+        num_list[1][5]=int(string[f+3:f+5])
+    else:
+        num_list[1][5]=int(string[f+3])
+def see_river(string,num_list):
+    f=string.find('<')
+    num_list[0][6]=int(string[f+1])
+    if is_number(string[f+3:f+5]):
+        num_list[1][6]=int(string[f+3:f+5])
+    else:
+        num_list[1][6]=int(string[f+3])
+if __name__=="__main__":
+    string_preflop=input()
+    string_flop=input()
+    string_turn=input()
+    string_river=input()
+    num_list=numpy.zeros((2,7))
+    see_preflop(string_preflop,num_list)
+    see_flop(string_flop,num_list)
+    see_turn(string_turn,num_list)
+    see_river(string_river,num_list)
+
+    print(num_list)
